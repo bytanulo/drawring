@@ -1,0 +1,63 @@
+const FRAME_RATE = 1.5;
+
+const CANVAS_BACKGROUND_COLOR = "white";
+
+const RING_THICKNESS = 2;
+const RING_SIZE = 100;
+const RING_COLOR = "black";
+const RING_COUNT = 1_000;
+
+onload = function main() {
+	Object.assign(document.body.style, {
+		margin: "0",
+		padding: "0",
+
+		width: "100vw",
+		height: "100vh",
+
+		backgroundColor: "#1f1f1f",
+
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+	});
+
+	const canvas = document.createElement("canvas");
+	if(canvas instanceof HTMLUnknownElement) {
+		window.alert("error: failed to create a canvas");
+		return;
+	}
+	canvas.width  = 640;
+	canvas.height = 480;
+	Object.assign(canvas.style, {
+		backgroundColor: CANVAS_BACKGROUND_COLOR,
+		border: `${RING_THICKNESS}px solid black`,
+	})
+	document.body.append(canvas);
+
+	const ctx = canvas.getContext("2d");
+	if(ctx == null) {
+		window.alert("error: failed to create a drawing context");
+		return;
+	}
+	ctx.strokeStyle = RING_COLOR;
+	ctx.lineWidth = RING_THICKNESS;
+
+	let lastFrameTimestamp = -Infinity;
+	window.requestAnimationFrame(function render(timestamp) {
+		if(timestamp - lastFrameTimestamp >= 1000 / FRAME_RATE) {
+			lastFrameTimestamp = timestamp;
+
+			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			ctx.beginPath();
+			for(let i = 0; i < RING_COUNT; i++) {
+				const x = Math.random() * (ctx.canvas.width  + RING_SIZE * 2) - RING_SIZE;
+				const y = Math.random() * (ctx.canvas.height + RING_SIZE * 2) - RING_SIZE;
+				ctx.moveTo(x + RING_SIZE / 2, y);
+				ctx.arc(x, y, RING_SIZE / 2, 0, 2 * Math.PI);
+			}
+			ctx.stroke();
+		}
+		window.requestAnimationFrame(render);
+	});
+}
