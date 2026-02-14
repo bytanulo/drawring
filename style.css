@@ -14,6 +14,14 @@ body {
 	flex-wrap: wrap;
 }
 
+label, button {
+	margin: 0.5em 0;
+}
+
+#app, canvas {
+	margin-top: 0.5em;
+}
+
 noscript {
 	position: fixed;
 
@@ -30,10 +38,6 @@ noscript > * {
 	display: block;
 	margin: 0;
 	padding: 0.5em;
-}
-
-label, button {
-	margin-top: 1em;
 }
 
 label {

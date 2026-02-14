@@ -11,9 +11,36 @@
 			<b>javascript is <br /> required to use <br /> this webpage.</b>
 		</noscript>
 
-		<div>
-			<div class="flex-centered">
-				<canvas id="canvas" width="640" height="480"></canvas>
+		<div id="app">
+			<div class="flex-horizontal flex-space-between">
+				<div class="flex-vertical">
+					<button id="color-swapper">
+						swap colors
+					</button>
+					<label>
+						<input type="color" id="canvas-background-color-picker" />
+						&nbsp;background color
+					</label>
+					<label>
+						<input type="color" id="ring-color-picker" />
+						&nbsp;ring color
+					</label>
+				</div>
+
+				<div class="flex-vertical flex-right-aligned">
+					<label>
+						number of rings&nbsp;
+						<input type="number" id="ring-count-input" min="0" max="9999" />
+					</label>
+					<label>
+						ring size (in pixels)&nbsp;
+						<input type="number" id="ring-size-input" min="0" max="1000" />
+					</label>
+					<label>
+						ring thickness (in pixels)&nbsp;
+						<input type="number" id="ring-thickness-input" min="0" max="250" />
+					</label>
+				</div>
 			</div>
 
 			<div id="configuration-division-1" class="flex-horizontal flex-space-between">
@@ -35,35 +62,8 @@
 				</button>
 			</div>
 
-			<div class="flex-horizontal flex-space-between">
-				<div class="flex-vertical">
-					<label>
-						<input type="color" id="canvas-background-color-picker" />
-						&nbsp;background color
-					</label>
-					<label>
-						<input type="color" id="ring-color-picker" />
-						&nbsp;ring color
-					</label>
-					<button id="color-swapper">
-						swap colors
-					</button>
-				</div>
-
-				<div class="flex-vertical flex-right-aligned">
-					<label>
-						number of rings&nbsp;
-						<input type="number" id="ring-count-input" min="0" max="9999" />
-					</label>
-					<label>
-						ring size (in pixels)&nbsp;
-						<input type="number" id="ring-size-input" min="0" max="1000" />
-					</label>
-					<label>
-						ring thickness (in pixels)&nbsp;
-						<input type="number" id="ring-thickness-input" min="0" max="250" />
-					</label>
-				</div>
+			<div class="flex-centered">
+				<canvas id="canvas" width="640" height="480"></canvas>
 			</div>
 		</div>
 	</body>
