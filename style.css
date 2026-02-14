@@ -11,7 +11,7 @@ body {
 	color: white;
 	background-color: #1f1f1f;
 
-	flex-flow: column wrap;
+	flex-wrap: wrap;
 }
 
 noscript {
@@ -61,18 +61,36 @@ input[type = "color"]:hover  {
 
 input[type = "number"] {
 	width: 3.5em;
+	text-align: right;
 }
 
-.centering {
+.flex-horizontal {
+	display: flex;
+	flex-direction: row;
+}
+/* this feels like a hack */
+.flex-horizontal > label > input, .flex-horizontal > input {
+	margin-right: 2.5em;
+}
+
+.flex-vertical {
+	display: flex;
+	flex-direction: column;
+}
+
+.flex-centered {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.align-right {
+.flex-right-aligned {
 	display: flex;
-	flex-flow: column wrap;
 	align-items: flex-end;
+}
+
+.flex-space-between {
+	justify-content: space-between;
 }
 
 #canvas {
@@ -81,11 +99,5 @@ input[type = "number"] {
 }
 
 #draw-button {
-	width: 8em;
-}
-
-#configuration-division {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-between;
+	width: 12em;
 }
