@@ -46,7 +46,10 @@ label {
 }
 
 input, button {
+	background-color: white;
+	color: black;
 	font: inherit;
+
 	border-radius: 0;
 	border: 1px solid black;
 }
