@@ -43,12 +43,16 @@ label {
 
 input, button {
 	font: inherit;
+	border-radius: 0;
+	border: 1px solid black;
+}
+input:not([type = "number"]):hover, button:hover {
+	filter: brightness(75%);
 }
 
 input[type = "color"] {
 	width:  1.5em;
 	height: 1.5em;
-	border-radius: 0;
 	padding: 0;
 }
 input[type = "color"]:hover  {
