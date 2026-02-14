@@ -5,11 +5,6 @@ const DEFAULT_RING_THICKNESS = 2;
 const DEFAULT_RING_SIZE = 100;
 const DEFAULT_RING_COUNT = 1000;
 
-function showErrorMessage(message) {
-	// TODO: do something fancier here
-	window.alert(`error: ${message}`);
-}
-
 function drawRingsToCanvas(ctx, ringCount, ringSize) {
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	ctx.beginPath();
@@ -22,54 +17,61 @@ function drawRingsToCanvas(ctx, ringCount, ringSize) {
 	ctx.stroke();
 }
 
+function die(message) {
+	// TODO: do something fancier here
+	window.alert(`error: ${message}`);
+	throw new Error(errorMessage);
+}
+
+function getElementByIdOrDie(elementID, errorMessage) {
+	const element = document.getElementById(elementID);
+	if(element == null) {
+		die(errorMessage);
+	}
+	return element;
+}
+
 onload = function main() {
 	let ringCount = DEFAULT_RING_COUNT;
 	let ringSize  = DEFAULT_RING_SIZE; // TODO: rename to `ringDiameter`
 	let ringThickness = DEFAULT_RING_THICKNESS;
 
-	const canvas = document.getElementById("canvas");
-	if(canvas == null) {
-		showErrorMessage("no canvas in document");
-		return;
-	}
-	Object.assign(canvas.style, {
-		backgroundColor: DEFAULT_CANVAS_BACKGROUND_COLOR,
-		border: `${ringThickness}px solid black`,
-	})
+	const canvas = getElementByIdOrDie("canvas", "no canvas in document");
+	canvas.style.backgroundColor = DEFAULT_CANVAS_BACKGROUND_COLOR;
+	canvas.style.borderWidth = `${ringThickness}px`;
 
 	const ctx = canvas.getContext("2d");
 	if(ctx == null) {
-		showErrorMessage("failed to create a drawing context");
-		return;
+		die("failed to create a drawing context");
 	}
-	ctx.strokeStyle = DEFAULT_RING_COLOR;
+	ctx.strokeStyle = ctx.canvas.style.borderColor = DEFAULT_RING_COLOR;
 	ctx.lineWidth = ringThickness;
 
-	const backgroundColorPicker = document.getElementById("canvas-background-color-picker");
-	if(backgroundColorPicker == null) {
-		showErrorMessage("no background color picker in document");
-		return;
-	}
+	const backgroundColorPicker = getElementByIdOrDie("canvas-background-color-picker", "no background color picker in document");
 	backgroundColorPicker.addEventListener("input", function(event) {
 		canvas.style.backgroundColor = event.target.value;
 	});
 	backgroundColorPicker.value = DEFAULT_CANVAS_BACKGROUND_COLOR;
 
-	const ringColorPicker = document.getElementById("ring-color-picker");
-	if(ringColorPicker == null) {
-		showErrorMessage("no ring color picker in document");
-		return;
-	}
+	const ringColorPicker = getElementByIdOrDie("ring-color-picker", "no ring color picker in document");
 	ringColorPicker.addEventListener("input", function(event) {
-		ctx.strokeStyle = event.target.value;
-		ctx.canvas.style.borderColor = event.target.value;
+		ctx.strokeStyle = ctx.canvas.style.borderColor = color;
 	});
 
-	const ringCountInput = document.getElementById("ring-count-input");
-	if(ringCountInput == null) {
-		showErrorMessage("no ring count input in document");
-		return;
-	}
+	const colorSwapper = getElementByIdOrDie("color-swapper", "no color swap button in document");
+	colorSwapper.addEventListener("click", function() {
+		const foregroundColor = ringColorPicker.value;
+		const backgroundColor = backgroundColorPicker.value;
+
+		ctx.strokeStyle              = backgroundColor;
+		ctx.canvas.style.borderColor = backgroundColor;
+		ringColorPicker.value        = backgroundColor;
+
+		ctx.canvas.style.backgroundColor = foregroundColor;
+		backgroundColorPicker.value      = foregroundColor;
+	});
+
+	const ringCountInput = getElementByIdOrDie("ring-count-input", "no ring count input in document");
 	ringCountInput.addEventListener("input", function(event) {
 		if(event.target.value.length == 0) {
 			event.target.value = ringCount.toString();
@@ -80,11 +82,7 @@ onload = function main() {
 	});
 	ringCountInput.value = ringCount;
 
-	const ringSizeInput = document.getElementById("ring-size-input");
-	if(ringSizeInput == null) {
-		showErrorMessage("no ring size input in document");
-		return;
-	}
+	const ringSizeInput = getElementByIdOrDie("ring-size-input", "no ring size input in document");
 	ringSizeInput.addEventListener("input", function(event) {
 		if(event.target.value.length == 0) {
 			event.target.value = ringSize.toString();
@@ -95,11 +93,7 @@ onload = function main() {
 	});
 	ringSizeInput.value = ringSize;
 
-	const ringThicknessInput = document.getElementById("ring-thickness-input");
-	if(ringThicknessInput == null) {
-		showErrorMessage("no ring size input in document");
-		return;
-	}
+	const ringThicknessInput = getElementByIdOrDie("ring-thickness-input", "no ring size input in document");
 	ringThicknessInput.addEventListener("input", function(event) {
 		if(event.target.value.length == 0) {
 			event.target.value = ringThickness.toString();
@@ -112,11 +106,7 @@ onload = function main() {
 	});
 	ringThicknessInput.value = ringThickness;
 
-	const drawButton = document.getElementById("draw-button");
-	if(drawButton == null) {
-		showErrorMessage("no draw button in document");
-		return;
-	}
+	const drawButton = getElementByIdOrDie("draw-button", "no draw button in document");
 	drawButton.addEventListener("click", function() {
 		drawRingsToCanvas(ctx, ringCount, ringSize);
 	});

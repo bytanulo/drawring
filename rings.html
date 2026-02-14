@@ -14,7 +14,7 @@
 		<div>
 			<canvas id="canvas" width="640" height="480"></canvas>
 
-			<div id="draw-button-division" class="centering">
+			<div class="centering">
 				<button id="draw-button">
 					<!-- this should probably have a more descriptive label -->
 					draw
@@ -23,6 +23,9 @@
 
 			<div id="configuration-division">
 				<div>
+					<button id="color-swapper">
+						swap colors
+					</button>
 					<label>
 						<input type="color" id="canvas-background-color-picker" />
 						&nbsp;background color
@@ -35,15 +38,15 @@
 
 				<div class="align-right">
 					<label>
-						number of rings:&nbsp;
+						number of rings&nbsp;
 						<input type="number" id="ring-count-input" min="0" max="10000" />
 					</label>
 					<label>
-						ring size (in pixels):&nbsp;
+						ring size (in pixels)&nbsp;
 						<input type="number" id="ring-size-input" min="0" max="1000" />
 					</label>
 					<label>
-						ring thickness (in pixels):&nbsp;
+						ring thickness (in pixels)&nbsp;
 						<input type="number" id="ring-thickness-input" min="0" max="250" />
 					</label>
 				</div>

@@ -32,7 +32,7 @@ noscript > * {
 	padding: 0.5em;
 }
 
-#draw-button-division, label {
+label, button {
 	margin-top: 1em;
 }
 
@@ -46,9 +46,10 @@ input, button {
 }
 
 input[type = "color"] {
-	width:  2.5em;
-	height: 2.5em;
-	border-radius: 100%;
+	width:  1.5em;
+	height: 1.5em;
+	border-radius: 0;
+	padding: 0;
 }
 input[type = "color"]:hover  {
 	cursor: pointer;
