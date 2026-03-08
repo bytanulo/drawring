@@ -5,11 +5,11 @@ body {
 	width: 100vw;
 	height: 100vh;
 
-	font-size: large;
+	font-size: normal;
 	font-family: monospace;
 
-	color: white;
-	background-color: #1f1f1f;
+	color: #fff;
+	background-color: #222;
 
 	flex-wrap: wrap;
 }
@@ -25,12 +25,12 @@ label, button {
 noscript {
 	position: fixed;
 
-	background-color: black;
-	color: white;
+	background-color: #000;
+	color: #fff;
 	text-align: center;
 
-	border: 0.2em solid black;
-	box-shadow: 0 10px 10px black;
+	border: 0.2em solid #000;
+	box-shadow: 0 10px 10px #000;
 }
 noscript > * {
 	border: 0.2em dashed #ffe94b;
@@ -46,15 +46,22 @@ label {
 }
 
 input, button {
-	background-color: white;
-	color: black;
+	background-color: #444;
+	color: #fff;
 	font: inherit;
 
 	border-radius: 0;
-	border: 1px solid black;
+	border: 1px solid #000;
 }
 input:not([type = "number"]):hover, button:hover {
-	filter: brightness(75%);
+	background-color: #666;
+}
+input:not([type = "number"]):active, button:active {
+	background-color: #aaa;
+}
+input:focus, button:focus {
+	border-color: #fff;
+	outline: unset;
 }
 
 input[type = "color"] {
@@ -67,7 +74,7 @@ input[type = "color"]:hover  {
 }
 
 input[type = "number"] {
-	width: 3.5em;
+	width: 4em;
 	text-align: right;
 }
 
@@ -102,7 +109,7 @@ input[type = "number"] {
 
 #canvas {
 	background-color: #aaa;
-	border: 2px solid black;
+	border: 2px solid #000;
 }
 
 #draw-button {
