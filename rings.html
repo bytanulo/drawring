@@ -45,7 +45,6 @@
 
 			<div id="configuration-division-1" class="flex-horizontal flex-space-between">
 				<div class="flex-horizontal">
-					<!-- i'm not sure if changing the size of the canvas should affect the layout of the other ui -->
 					<label>
 						width:&nbsp;
 						<input type="number" id="canvas-width-input" min="1" max="9999" />
@@ -53,6 +52,12 @@
 					<label>
 						height:&nbsp;
 						<input type="number" id="canvas-height-input" min="1" max="9999" />
+					</label>
+					<!-- i'm STILL not sure if changing the size of the canvas should affect the layout of the other ui -->
+					<label>
+						<!-- TODO: better label, this sucks -->
+						preview size:&nbsp;
+						<input type="checkbox" id="preview-size-toggle" />
 					</label>
 				</div>
 
@@ -63,7 +68,7 @@
 			</div>
 
 			<div class="flex-centered">
-				<canvas id="canvas" width="640" height="480"></canvas>
+				<canvas id="canvas"></canvas>
 			</div>
 		</div>
 	</body>

@@ -1,3 +1,5 @@
+const DEFAULT_CANVAS_WIDTH  = 640;
+const DEFAULT_CANVAS_HEIGHT = 480;
 const DEFAULT_CANVAS_BACKGROUND_COLOR = "#ffffff";
 
 const DEFAULT_RING_COLOR = "#000000";
@@ -38,6 +40,8 @@ onload = function main() {
 	let ringThickness = DEFAULT_RING_THICKNESS;
 
 	const canvas = getElementByIdOrDie("canvas", "no canvas in document");
+	canvas.width = DEFAULT_CANVAS_WIDTH;
+	canvas.height = DEFAULT_CANVAS_HEIGHT;
 	canvas.style.backgroundColor = DEFAULT_CANVAS_BACKGROUND_COLOR;
 	canvas.style.borderWidth = `${ringThickness}px`;
 
@@ -47,6 +51,20 @@ onload = function main() {
 	}
 	ctx.strokeStyle = ctx.canvas.style.borderColor = DEFAULT_RING_COLOR;
 	ctx.lineWidth = ringThickness;
+
+	const canvasSizePreviewToggle = getElementByIdOrDie("preview-size-toggle", "no preview size toggle in document");
+	canvasSizePreviewToggle.checked = false;
+	canvasSizePreviewToggle.onchange = function() {
+		// TODO: do something nicer here
+		if(canvasSizePreviewToggle.checked) {
+			canvas.style.width = canvas.style.height = "";
+		}
+		else {
+			canvas.style.width = `${DEFAULT_CANVAS_WIDTH}px`;
+			canvas.style.height = `${DEFAULT_CANVAS_HEIGHT}px`;
+		}
+	};
+	canvasSizePreviewToggle.onchange();
 
 	const canvasWidthInput = getElementByIdOrDie("canvas-width-input", "no canvas width input in document");
 	canvasWidthInput.value = canvas.width;
