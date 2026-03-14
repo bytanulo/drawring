@@ -1,43 +1,41 @@
-body {
-	margin: 0;
-	padding: 0;
+/* TODO: use variables */
+/* TODO: use `em` where `px` is used */
 
+body {
 	width: 100vw;
 	height: 100vh;
+	padding: 0;
+	margin: 0;
+
+	background-color: #222;
+	color: #fff;
 
 	font-size: normal;
 	font-family: monospace;
 
-	color: #fff;
-	background-color: #222;
-
 	flex-wrap: wrap;
 }
 
-label, button {
-	margin: 0.5em 0;
-}
-
-#app, canvas {
-	margin-top: 0.5em;
-}
-
+/* i might want to re-style this since it looks
+   out of place with the rest of the page */
 noscript {
 	position: fixed;
 
-	background-color: #000;
-	color: #fff;
-	text-align: center;
-
 	border: 0.2em solid #000;
 	box-shadow: 0 10px 10px #000;
+
+	background-color: #000;
+	color: #fff;
+
+	text-align: center;
 }
 noscript > * {
-	border: 0.2em dashed #ffe94b;
-
 	display: block;
+
 	margin: 0;
 	padding: 0.5em;
+
+	border: 0.2em dashed #ffe94b;
 }
 
 label {
@@ -45,73 +43,95 @@ label {
 	align-items: center;
 }
 
-input, button {
+button, input {
+	padding: 0;
+	margin: 0;
+
+	height: 2em;
+
+	border: 1px solid #000;
+	border-radius: 0;
+
 	background-color: #444;
 	color: #fff;
-	font: inherit;
 
-	border-radius: 0;
-	border: 1px solid #000;
+	font: inherit;
 }
-input:not([type = "number"]):hover, button:hover {
+input[type = "color"], input[type = "checkbox"] {
+	width: 2em;
+}
+input[type = "number"] {
+	width: 5em;
+	height: calc(2em - 2px);
+	text-align: right;
+}
+input[type = "checkbox"] {
+	appearance: none;
+}
+#draw-button {
+	width: 12em;
+}
+
+button:hover, input:hover {
 	background-color: #666;
 }
-input:not([type = "number"]):active, button:active {
+button:active, input:active {
 	background-color: #aaa;
 }
-input:focus, button:focus {
-	border-color: #fff;
-	outline: unset;
+button:focus, input:focus {
+	outline: 1px solid #fff;
+}
+input[type = "number"]:focus, input[type = "number"]:active {
+	background-color: #444;
 }
 
-input[type = "color"] {
-	width:  1.5em;
-	height: 1.5em;
-	padding: 0;
+input[type = "checkbox"]:checked {
+	background-color: #fff;
+	background-image: url("check.svg");
+	background-size: contain;
 }
-input[type = "color"]:hover  {
-	cursor: pointer;
-}
-
-input[type = "number"] {
-	width: 4em;
-	text-align: right;
+input[type = "checkbox"]:checked:hover {
+	background-color: #aaa;
 }
 
 .flex-horizontal {
 	display: flex;
 	flex-direction: row;
 }
-/* this feels like a hack */
-.flex-horizontal > label > input, .flex-horizontal > input {
-	margin-right: 2.5em;
-}
-
 .flex-vertical {
 	display: flex;
 	flex-direction: column;
 }
-
 .flex-centered {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-
+.flex-left-aligned {
+	display: flex;
+	align-items: flex-start;
+}
 .flex-right-aligned {
 	display: flex;
 	align-items: flex-end;
 }
-
 .flex-space-between {
 	justify-content: space-between;
 }
 
 #canvas {
-	background-color: #aaa;
 	border: 2px solid #000;
+	background-color: #aaa;
 }
 
-#draw-button {
-	width: 12em;
+/* these three rules are 100% hacks, but i don't
+   feel like figuring out how to do this better */
+button, label {
+	margin-bottom: 0.5em;
+}
+#root {
+	margin-top: 0.5em;
+}
+.flex-horizontal > label > input {
+	margin-right: 2em;
 }

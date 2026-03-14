@@ -11,52 +11,52 @@
 			<b>javascript is <br /> required to use <br /> this webpage.</b>
 		</noscript>
 
-		<div id="app">
+		<div id="root">
 			<div class="flex-horizontal flex-space-between">
 				<div class="flex-vertical">
 					<button id="color-swapper">
 						swap colors
 					</button>
-					<label>
+					<label for="canvas-background-color-picker">
 						<input type="color" id="canvas-background-color-picker" />
 						&nbsp;background color
 					</label>
-					<label>
+					<label for="ring-color-picker">
 						<input type="color" id="ring-color-picker" />
 						&nbsp;ring color
 					</label>
 				</div>
 
 				<div class="flex-vertical flex-right-aligned">
-					<label>
+					<label for="ring-count-input">
 						number of rings&nbsp;
 						<input type="number" id="ring-count-input" min="0" max="9999" />
 					</label>
-					<label>
+					<label for="ring-size-input">
 						ring size (in pixels)&nbsp;
 						<input type="number" id="ring-size-input" min="0" max="1000" />
 					</label>
-					<label>
+					<label for="ring-thickness-input">
 						ring thickness (in pixels)&nbsp;
 						<input type="number" id="ring-thickness-input" min="0" max="250" />
 					</label>
 				</div>
 			</div>
 
-			<div id="configuration-division-1" class="flex-horizontal flex-space-between">
+			<div class="flex-horizontal flex-space-between">
 				<div class="flex-horizontal">
-					<label>
-						width:&nbsp;
+					<label for="canvas-width-input">
+						width&nbsp;
 						<input type="number" id="canvas-width-input" min="1" max="9999" />
 					</label>
-					<label>
-						height:&nbsp;
+					<label for="canvas-height-input">
+						height&nbsp;
 						<input type="number" id="canvas-height-input" min="1" max="9999" />
 					</label>
 					<!-- i'm STILL not sure if changing the size of the canvas should affect the layout of the other ui -->
-					<label>
+					<label for="preview-size-toggle">
 						<!-- TODO: better label, this sucks -->
-						preview size:&nbsp;
+						preview size&nbsp;
 						<input type="checkbox" id="preview-size-toggle" />
 					</label>
 				</div>
