@@ -1,5 +1,16 @@
-/* TODO: use variables */
-/* TODO: use `em` where `px` is used */
+:root {
+	--input-height: 2em;
+	--border-width: 0.125em;
+
+	--text-lightness: 100;
+
+	--base-lightness: 12.5;
+	--base-lightness-step: 12.5;
+}
+
+#urmom {
+	fill: red !important;
+}
 
 body {
 	display: flex;
@@ -11,7 +22,7 @@ body {
 	padding: 0;
 	margin:  0;
 
-	color: #fff;
+	color: hsl(none none var(--text-lightness));
 	font: medium sans-serif;
 }
 
@@ -30,7 +41,6 @@ noscript {
 	height: 100%;
 
 	background-color: #000a;
-	color: #fff;
 
 	text-align: center;
 }
@@ -42,11 +52,11 @@ noscript > * {
 	margin: 0;
 	padding: 0.5em;
 
-	background-color: #222;
+	background-color: hsl(none none var(--base-lightness));
 	color: #ffe94b;
 
 	border: 0.125em solid #ffe94b;
-	box-shadow: 0 1em 1em 0.5em #000;
+	box-shadow: 0 1em 1em 0.5em black;
 
 	font-size: 1.25rem;
 }
@@ -62,10 +72,12 @@ noscript > * {
 
 	overflow-y: scroll;
 
-	background-color: #222;
+	background-color: hsl(none none var(--base-lightness));
 
-	border-right: 1px solid #000;
-	box-shadow: 0.1em 0 0.4em #000;
+	border-right: var(--border-width) solid;
+	border-right-color: hsl(none none
+		calc(100 - var(--text-lightness)));
+	box-shadow: 0.1em 0 0.4em black;
 }
 
 #canvas-division {
@@ -80,12 +92,13 @@ noscript > * {
 
 	overflow: scroll;
 
-	background-color: #444;
+	background-color: hsl(none none
+		calc(var(--base-lightness) + var(--base-lightness-step) * 1));
 }
 
 fieldset {
 	padding: 0;
-	margin: 1.5em 0 0 0;
+	margin: calc(var(--input-height) * 3/4) 0 0 0;
 
 	border: none;
 }
@@ -97,58 +110,66 @@ legend, label {
 	justify-content: space-between;
 
 	width: 100%;
-	height: 2em;
+	height: var(--input-height);
 
 	padding: 0;
 	margin:  0;
 }
 legend {
-	border-bottom: 1px solid #888;
+	border-bottom: var(--border-width) solid;
+	border-bottom-color: hsl(none none
+		calc(var(--base-lightness) + var(--base-lightness-step) * 4));
 
 	font-weight: bold;
 }
 label {
-	margin-top: 0.5em;
+	margin-top: calc(var(--input-height) / 4);
 }
 
 button, input {
-	height: 2em;
+	height: var(--input-height);
 
 	padding: 0;
 	margin:  0;
 
-	border: 1px solid #000;
+	border: var(--border-width) solid;
+	border-color: hsl(none none
+		calc(100 - var(--text-lightness)));
 	border-radius: 0;
 
-	background-color: #444;
-	color: #fff;
+	background-color: hsl(none none
+		calc(var(--base-lightness) + var(--base-lightness-step) * 1));
+	color: inherit;
 
-	font-size: medium;
+	font-size: 1rem;
 	font-family: inherit;
 }
 button {
 	width: 100%;
 }
 input[type = "color"], input[type = "checkbox"] {
-	width: 2em;
+	width: var(--input-height);
 }
 
 button:hover, input:hover {
-	background-color: #666;
+	background-color: hsl(none none
+		calc(var(--base-lightness) + var(--base-lightness-step) * 2));
 }
 button:active, input:active {
-	background-color: #aaa;
+	background-color: hsl(none none
+		calc(var(--base-lightness) + var(--base-lightness-step) * 4));
 }
 button:focus, input:focus {
-	outline: 1px solid #fff;
+	outline: var(--border-width) solid hsl(none none var(--text-lightness));
 }
 input[type = "number"]:focus, input[type = "number"]:active {
-	background-color: #444;
+	background-color: hsl(none none
+		calc(var(--base-lightness) + var(--base-lightness-step) * 1));
 }
 
 input[type = "number"] {
 	width: 5em;
-	height: calc(2em - 2px);
+	height: calc(var(--input-height) - 2px);
 
 	text-align: right;
 }
@@ -157,17 +178,18 @@ input[type = "checkbox"] {
 	appearance: none;
 }
 input[type = "checkbox"]:checked {
-	background-color: #fff;
+	background-color: hsl(none none var(--text-lightness));
 	background-image: url("check.svg");
 	background-size: contain;
 }
 input[type = "checkbox"]:checked:hover {
-	background-color: #aaa;
+	background-color: hsl(none none
+		calc(var(--base-lightness) + var(--base-lightness-step) * 4));
 }
 
 #color-swapper {
 	width: auto;
 
-	padding: 0 0.5em;
+	padding: 0 calc(var(--input-height) / 4);
 	margin-bottom: 0.25em;
 }
