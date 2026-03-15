@@ -24,17 +24,20 @@
 
 				<label for="ring-count-input">
 					number of rings
-					<input type="number" id="ring-count-input" min="0" max="9999" />
+					<input id="ring-count-input" type="number"
+					       min="0" max="9999" value="1000" />
 				</label>
 
 				<label for="ring-size-input">
-					ring size
-					<input type="number" id="ring-size-input" min="0" max="1000" />
+					ring diameter
+					<input id="ring-diameter-input" type="number"
+					       min="0" max="1000" value="100" />
 				</label>
 
 				<label for="ring-thickness-input">
 					ring thickness
-					<input type="number" id="ring-thickness-input" min="0" max="250" />
+					<input id="ring-thickness-input" type="number"
+					       min="0" max="250" value="2" />
 				</label>
 			</fieldset>
 
@@ -48,12 +51,14 @@
 
 				<label for="canvas-background-color-picker">
 					background color
-					<input type="color" id="canvas-background-color-picker" />
+					<input id="canvas-background-color-picker" type="color"
+					       value="#000000" />
 				</label>
 
 				<label for="ring-color-picker">
 					ring color
-					<input type="color" id="ring-color-picker" />
+					<input id="ring-color-picker" type="color"
+					       value="#ffffff" />
 				</label>
 			</fieldset>
 
@@ -64,19 +69,22 @@
 
 				<label for="canvas-width-input">
 					width
-					<input type="number" id="canvas-width-input" min="1" max="9999" />
+					<input id="canvas-width-input" type="number"
+					       min="1" max="9999" value="1280" />
 				</label>
 
 				<label for="canvas-height-input">
 					height
-					<input type="number" id="canvas-height-input" min="1" max="9999" />
+					<input id="canvas-height-input" type="number"
+					       min="1" max="9999" value="720" />
 				</label>
 
 				<!-- i'm STILL not sure if changing the size of the canvas should affect the layout of the other ui -->
 				<label for="preview-size-toggle">
-					<!-- TODO: better label, this sucks -->
-					preview size
-					<input type="checkbox" id="preview-size-toggle" />
+					<!-- TODO: better label, this still kind of sucks -->
+					fit to view
+					<input id="preview-size-toggle" type="checkbox"
+					       checked />
 				</label>
 			</fieldset>
 		</div>
