@@ -2,18 +2,17 @@
 /* TODO: use `em` where `px` is used */
 
 body {
-	width: 100vw;
+	display: flex;
+	flex-flow: row nowrap;
+
+	width:  100vw;
 	height: 100vh;
+
 	padding: 0;
-	margin: 0;
+	margin:  0;
 
-	background-color: #222;
 	color: #fff;
-
-	font-size: normal;
-	font-family: monospace;
-
-	flex-wrap: wrap;
+	font: medium sans-serif;
 }
 
 /* i might want to re-style this since it looks
@@ -21,10 +20,16 @@ body {
 noscript {
 	position: fixed;
 
-	border: 0.2em solid #000;
-	box-shadow: 0 10px 10px #000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-	background-color: #000;
+	z-index: 2;
+
+	width:  100%;
+	height: 100%;
+
+	background-color: #000a;
 	color: #fff;
 
 	text-align: center;
@@ -32,22 +37,85 @@ noscript {
 noscript > * {
 	display: block;
 
+	width: auto;
+
 	margin: 0;
 	padding: 0.5em;
 
-	border: 0.2em dashed #ffe94b;
+	background-color: #222;
+	color: #ffe94b;
+
+	border: 0.125em solid #ffe94b;
+	box-shadow: 0 1em 1em 0.5em #000;
+
+	font-size: 1.25rem;
 }
 
-label {
+#controls-division {
+	display: inline-block;
+
+	z-index: 1;
+
+	min-width: 16em;
+
+	padding: 1em;
+
+	overflow-y: scroll;
+
+	background-color: #222;
+
+	border-right: 1px solid #000;
+	box-shadow: 0.1em 0 0.4em #000;
+}
+
+#canvas-division {
 	display: flex;
+	justify-content: center;
 	align-items: center;
+	flex-grow: 1;
+
+	z-index: 0;
+
+	height: 100%;
+
+	overflow: scroll;
+
+	background-color: #444;
+}
+
+fieldset {
+	padding: 0;
+	margin: 1.5em 0 0 0;
+
+	border: none;
+}
+
+legend, label {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: space-between;
+
+	width: 100%;
+	height: 2em;
+
+	padding: 0;
+	margin:  0;
+}
+legend {
+	border-bottom: 1px solid #888;
+
+	font-weight: bold;
+}
+label {
+	margin-top: 0.5em;
 }
 
 button, input {
-	padding: 0;
-	margin: 0;
-
 	height: 2em;
+
+	padding: 0;
+	margin:  0;
 
 	border: 1px solid #000;
 	border-radius: 0;
@@ -55,21 +123,14 @@ button, input {
 	background-color: #444;
 	color: #fff;
 
-	font: inherit;
+	font-size: medium;
+	font-family: inherit;
+}
+button {
+	width: 100%;
 }
 input[type = "color"], input[type = "checkbox"] {
 	width: 2em;
-}
-input[type = "number"] {
-	width: 5em;
-	height: calc(2em - 2px);
-	text-align: right;
-}
-input[type = "checkbox"] {
-	appearance: none;
-}
-#draw-button {
-	width: 12em;
 }
 
 button:hover, input:hover {
@@ -85,6 +146,16 @@ input[type = "number"]:focus, input[type = "number"]:active {
 	background-color: #444;
 }
 
+input[type = "number"] {
+	width: 5em;
+	height: calc(2em - 2px);
+
+	text-align: right;
+}
+
+input[type = "checkbox"] {
+	appearance: none;
+}
 input[type = "checkbox"]:checked {
 	background-color: #fff;
 	background-image: url("check.svg");
@@ -94,44 +165,9 @@ input[type = "checkbox"]:checked:hover {
 	background-color: #aaa;
 }
 
-.flex-horizontal {
-	display: flex;
-	flex-direction: row;
-}
-.flex-vertical {
-	display: flex;
-	flex-direction: column;
-}
-.flex-centered {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-.flex-left-aligned {
-	display: flex;
-	align-items: flex-start;
-}
-.flex-right-aligned {
-	display: flex;
-	align-items: flex-end;
-}
-.flex-space-between {
-	justify-content: space-between;
-}
+#color-swapper {
+	width: auto;
 
-#canvas {
-	border: 2px solid #000;
-	background-color: #aaa;
-}
-
-/* these three rules are 100% hacks, but i don't
-   feel like figuring out how to do this better */
-button, label {
-	margin-bottom: 0.5em;
-}
-#root {
-	margin-top: 0.5em;
-}
-.flex-horizontal > label > input {
-	margin-right: 2em;
+	padding: 0 0.5em;
+	margin-bottom: 0.25em;
 }

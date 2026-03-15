@@ -1,8 +1,8 @@
 const DEFAULT_CANVAS_WIDTH  = 640;
 const DEFAULT_CANVAS_HEIGHT = 480;
-const DEFAULT_CANVAS_BACKGROUND_COLOR = "#ffffff";
+const DEFAULT_CANVAS_BACKGROUND_COLOR = "#000000";
 
-const DEFAULT_RING_COLOR = "#000000";
+const DEFAULT_RING_COLOR = "#ffffff";
 const DEFAULT_RING_THICKNESS = 2;
 const DEFAULT_RING_SIZE = 100;
 const DEFAULT_RING_COUNT = 1000;
@@ -85,6 +85,7 @@ onload = function main() {
 	});
 
 	const ringColorPicker = getElementByIdOrDie("ring-color-picker", "no ring color picker in document");
+	ringColorPicker.value = DEFAULT_RING_COLOR;
 	ringColorPicker.addEventListener("input", function(event) {
 		ctx.strokeStyle = ctx.canvas.style.borderColor = event.target.color;
 	});

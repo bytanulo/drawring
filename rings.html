@@ -1,75 +1,88 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8" />
 		<title>rings</title>
 		<link rel="stylesheet" href="style.css" type="text/css" />
 		<script defer src="main.js" type="text/javascript"></script>
 	</head>
-	<body class="flex-centered">
+
+	<body>
 		<noscript>
-			<b>javascript is <br /> required to use <br /> this webpage.</b>
+			<b>javascript is <br /> required to use <br /> this webpage</b>
 		</noscript>
 
-		<div id="root">
-			<div class="flex-horizontal flex-space-between">
-				<div class="flex-vertical">
+		<div id="controls-division">
+			<button id="draw-button">
+				<!-- this should probably have a more descriptive label -->
+				draw
+			</button>
+
+			<fieldset>
+				<legend>
+					RINGS:
+				</legend>
+
+				<label for="ring-count-input">
+					number of rings
+					<input type="number" id="ring-count-input" min="0" max="9999" />
+				</label>
+
+				<label for="ring-size-input">
+					ring size
+					<input type="number" id="ring-size-input" min="0" max="1000" />
+				</label>
+
+				<label for="ring-thickness-input">
+					ring thickness
+					<input type="number" id="ring-thickness-input" min="0" max="250" />
+				</label>
+			</fieldset>
+
+			<fieldset>
+				<legend>
+					COLORS:
 					<button id="color-swapper">
 						swap colors
 					</button>
-					<label for="canvas-background-color-picker">
-						<input type="color" id="canvas-background-color-picker" />
-						&nbsp;background color
-					</label>
-					<label for="ring-color-picker">
-						<input type="color" id="ring-color-picker" />
-						&nbsp;ring color
-					</label>
-				</div>
+				</legend>
 
-				<div class="flex-vertical flex-right-aligned">
-					<label for="ring-count-input">
-						number of rings&nbsp;
-						<input type="number" id="ring-count-input" min="0" max="9999" />
-					</label>
-					<label for="ring-size-input">
-						ring size (in pixels)&nbsp;
-						<input type="number" id="ring-size-input" min="0" max="1000" />
-					</label>
-					<label for="ring-thickness-input">
-						ring thickness (in pixels)&nbsp;
-						<input type="number" id="ring-thickness-input" min="0" max="250" />
-					</label>
-				</div>
-			</div>
+				<label for="canvas-background-color-picker">
+					background color
+					<input type="color" id="canvas-background-color-picker" />
+				</label>
 
-			<div class="flex-horizontal flex-space-between">
-				<div class="flex-horizontal">
-					<label for="canvas-width-input">
-						width&nbsp;
-						<input type="number" id="canvas-width-input" min="1" max="9999" />
-					</label>
-					<label for="canvas-height-input">
-						height&nbsp;
-						<input type="number" id="canvas-height-input" min="1" max="9999" />
-					</label>
-					<!-- i'm STILL not sure if changing the size of the canvas should affect the layout of the other ui -->
-					<label for="preview-size-toggle">
-						<!-- TODO: better label, this sucks -->
-						preview size&nbsp;
-						<input type="checkbox" id="preview-size-toggle" />
-					</label>
-				</div>
+				<label for="ring-color-picker">
+					ring color
+					<input type="color" id="ring-color-picker" />
+				</label>
+			</fieldset>
 
-				<button id="draw-button">
-					<!-- this should probably have a more descriptive label -->
-					draw
-				</button>
-			</div>
+			<fieldset>
+				<legend>
+					IMAGE:
+				</legend>
 
-			<div class="flex-centered">
-				<canvas id="canvas"></canvas>
-			</div>
+				<label for="canvas-width-input">
+					width
+					<input type="number" id="canvas-width-input" min="1" max="9999" />
+				</label>
+
+				<label for="canvas-height-input">
+					height
+					<input type="number" id="canvas-height-input" min="1" max="9999" />
+				</label>
+
+				<!-- i'm STILL not sure if changing the size of the canvas should affect the layout of the other ui -->
+				<label for="preview-size-toggle">
+					<!-- TODO: better label, this sucks -->
+					preview size
+					<input type="checkbox" id="preview-size-toggle" />
+				</label>
+			</fieldset>
+		</div>
+
+		<div id="canvas-division">
+			<canvas id="canvas"></canvas>
 		</div>
 	</body>
 </html>
