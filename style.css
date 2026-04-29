@@ -8,10 +8,6 @@
 	--base-lightness-step: 12.5;
 }
 
-#urmom {
-	fill: red !important;
-}
-
 body {
 	display: flex;
 	flex-flow: row nowrap;
@@ -187,7 +183,7 @@ input[type = "checkbox"]:checked:hover {
 		calc(var(--base-lightness) + var(--base-lightness-step) * 4));
 }
 
-#color-swapper {
+legend > button {
 	width: auto;
 
 	padding: 0 calc(var(--input-height) / 4);

@@ -26,16 +26,17 @@ function getElementByIdOrDie(elementID, errorMessage) {
 }
 
 onload = function main() {
-	const canvasSizePreviewToggle = getElementByIdOrDie("preview-size-toggle",            "no preview size toggle in document");
-	const canvasWidthInput        = getElementByIdOrDie("canvas-width-input",             "no canvas width input in document");
-	const canvasHeightInput       = getElementByIdOrDie("canvas-height-input",            "no canvas height input in document");
-	const backgroundColorPicker   = getElementByIdOrDie("canvas-background-color-picker", "no background color picker in document");
-	const ringColorPicker         = getElementByIdOrDie("ring-color-picker",              "no ring color picker in document");
-	const colorSwapper            = getElementByIdOrDie("color-swapper",                  "no color swap button in document");
-	const ringCountInput          = getElementByIdOrDie("ring-count-input",               "no ring count input in document");
-	const ringDiameterInput       = getElementByIdOrDie("ring-diameter-input",            "no ring diameter input in document");
-	const ringThicknessInput      = getElementByIdOrDie("ring-thickness-input",           "no ring size input in document");
-	const drawButton              = getElementByIdOrDie("draw-button",                    "no draw button in document");
+	const drawButton               = getElementByIdOrDie("draw-button",                    "no draw button in document");
+	const ringCountInput           = getElementByIdOrDie("ring-count-input",               "no ring count input in document");
+	const ringDiameterInput        = getElementByIdOrDie("ring-diameter-input",            "no ring diameter input in document");
+	const ringThicknessInput       = getElementByIdOrDie("ring-thickness-input",           "no ring size input in document");
+	const colorSwapper             = getElementByIdOrDie("color-swapper",                  "no color swap button in document");
+	const backgroundColorPicker    = getElementByIdOrDie("canvas-background-color-picker", "no background color picker in document");
+	const ringColorPicker          = getElementByIdOrDie("ring-color-picker",              "no ring color picker in document");
+	const canvasWidthHeightSwapper = getElementByIdOrDie("canvas-width-height-swapper",    "no canvas width and height swapper in document");
+	const canvasWidthInput         = getElementByIdOrDie("canvas-width-input",             "no canvas width input in document");
+	const canvasHeightInput        = getElementByIdOrDie("canvas-height-input",            "no canvas height input in document");
+	const canvasSizePreviewToggle  = getElementByIdOrDie("preview-size-toggle",            "no preview size toggle in document");
 
 	let ringCount     = Number(ringCountInput.value);
 	let ringDiameter  = Number(ringDiameterInput.value);
@@ -58,12 +59,12 @@ onload = function main() {
 		drawRingsToCanvas(ctx, ringCount, ringDiameter, ringThickness);
 	});
 
-	canvasSizePreviewToggle.onchange = function() {
+	canvasSizePreviewToggle.addEventListener("change", function() {
 		canvas.style.maxWidth = canvas.style.maxHeight = (
 			(canvasSizePreviewToggle.checked) ? "100%" : "unset"
 		);
-	};
-	canvasSizePreviewToggle.onchange();
+	});
+	canvasSizePreviewToggle.dispatchEvent(new Event("change"));
 
 	colorSwapper.addEventListener("click", function() {
 		const foregroundColor = ringColorPicker.value;
@@ -102,6 +103,15 @@ onload = function main() {
 			ringThickness = Number(event.target.value);
 			ctx.lineWidth = ringThickness;
 		}
+	});
+
+	canvasWidthHeightSwapper.addEventListener("click", function(event) {
+		const width = canvasWidthInput.value;
+		canvasWidthInput.value = canvasHeightInput.value;
+		canvasHeightInput.value = width;
+
+		canvasWidthInput.dispatchEvent(new Event("input"));
+		canvasHeightInput.dispatchEvent(new Event("input"));
 	});
 
 	canvasWidthInput.addEventListener("input", function(event) {
