@@ -21,6 +21,11 @@ body {
 	color: hsl(none none var(--text-lightness));
 	font: medium sans-serif;
 }
+@media(orientation: portrait) {
+	body {
+		flex-direction: column-reverse;
+	}
+}
 
 /* i might want to re-style this since it looks
    out of place with the rest of the page */
@@ -63,6 +68,7 @@ noscript > * {
 	z-index: 1;
 
 	min-width: 16em;
+	min-height: 50%;
 
 	padding: 1em;
 
@@ -70,10 +76,18 @@ noscript > * {
 
 	background-color: hsl(none none var(--base-lightness));
 
-	border-right: var(--border-width) solid;
-	border-right-color: hsl(none none
+	border-width: 0;
+	border-right-width: var(--border-width);
+	border-color: hsl(none none
 		calc(100 - var(--text-lightness)));
-	box-shadow: 0.1em 0 0.4em black;
+	border-style: solid;
+	box-shadow: 0 0 0.4em black;
+}
+@media(orientation: portrait) {
+	#controls-division {
+		border-right-width: 0;
+		border-top-width: var(--border-width);
+	}
 }
 
 #canvas-division {
@@ -166,6 +180,8 @@ input[type = "number"]:focus, input[type = "number"]:active {
 input[type = "number"] {
 	width: 5em;
 	height: calc(var(--input-height) - 2px);
+
+	padding: 0 0.5em 0 0.5em;
 
 	text-align: right;
 }
