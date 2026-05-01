@@ -12,6 +12,13 @@ function getElementByIdOrDie(elementID) {
 	return element;
 }
 
+function swapInputValues(input1, input2) {
+	const value1 = input1.value;
+	const value2 = input2.value;
+	input1.value = value2;
+	input2.value = value1;
+}
+
 // this could maybe use a clearer and shorter name
 function createPositiveIntegerInputValidator(element) {
 	element.dataset.previousValue = element.value;
@@ -50,9 +57,8 @@ function syncCanvasContextStateToUIState(ctx, ui) {
 	ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
 
-function drawRingsToCanvas(ctx, ringCount, ringDiameter, ringThickness) {
+function drawRingsToCanvas(ctx, ringCount, ringDiameter) {
 	ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-	ctx.lineWidth = ringThickness;
 	ctx.beginPath();
 	for(let i = 0; i < ringCount; i++) {
 		const x = Math.random() * (ctx.canvas.width  + ringDiameter * 2) - ringDiameter;
@@ -85,55 +91,36 @@ onload = function main() {
 	}
 	syncCanvasContextStateToUIState(ctx, ui);
 
+	ui.drawButton.addEventListener("click", function() {
+		const ringCount     = Number(ui.ringCountInput.value);
+		const ringDiameter  = Number(ui.ringDiameterInput.value);
+		syncCanvasContextStateToUIState(ctx, ui);
+		drawRingsToCanvas(ctx, ringCount, ringDiameter);
+	});
+
+	ui.colorSwapper.addEventListener("click", function() {
+		swapInputValues(ui.ringColorPicker, ui.backgroundColorPicker);
+	});
+
+	ui.canvasWidthHeightSwapper.addEventListener("click", function(event) {
+		swapInputValues(ui.canvasWidthInput, ui.canvasHeightInput);
+		syncCanvasContextStateToUIState(ctx, ui)
+	});
+
+	ui.canvasSizePreviewToggle.addEventListener("click", function() {
+		const maxWidth = (ui.canvasSizePreviewToggle.checked) ? "100%" : "unset";
+		ctx.canvas.style.maxWidth = ctx.canvas.style.maxHeight = maxWidth;
+	});
+	ui.canvasSizePreviewToggle.dispatchEvent(new Event("click"));
+
 	for(const input of [ui.ringCountInput, ui.ringDiameterInput, ui.ringThicknessInput, ui.canvasWidthInput, ui.canvasHeightInput]) {
 		input.addEventListener("input", createPositiveIntegerInputValidator(input));
 	}
 
-	ui.drawButton.addEventListener("click", function() {
-		const ringCount     = Number(ui.ringCountInput.value);
-		const ringDiameter  = Number(ui.ringDiameterInput.value);
-		const ringThickness = Number(ui.ringThicknessInput.value);
-		drawRingsToCanvas(ctx, ringCount, ringDiameter, ringThickness);
-	});
-
-	ui.colorSwapper.addEventListener("click", function() {
-		const foregroundColor = ui.ringColorPicker.value;
-		const backgroundColor = ui.backgroundColorPicker.value;
-
-		ui.ringColorPicker.value       = backgroundColor;
-		ui.ringColorPicker.dispatchEvent(new Event("input"));
-
-		ui.backgroundColorPicker.value = foregroundColor;
-		ui.backgroundColorPicker.dispatchEvent(new Event("input"));
-	});
-
-	ui.canvasWidthHeightSwapper.addEventListener("click", function(event) {
-		const width = ui.canvasWidthInput.value;
-
-		ui.canvasWidthInput.value = ui.canvasHeightInput.value;
-		ui.canvasWidthInput.dispatchEvent(new Event("input"));
-
-		ui.canvasHeightInput.value = width;
-		ui.canvasHeightInput.dispatchEvent(new Event("input"));
-	});
-
-	ui.canvasSizePreviewToggle.addEventListener("input", function() {
-		ctx.canvas.style.maxWidth = ctx.canvas.style.maxHeight = (
-			(ui.canvasSizePreviewToggle.checked) ? "100%" : "unset"
-		);
-	});
-	ui.canvasSizePreviewToggle.dispatchEvent(new Event("input"));
-
-	ui.canvasWidthInput.addEventListener("input", function(event) {
+	ui.canvasWidthInput.addEventListener("input", function() {
 		syncCanvasContextStateToUIState(ctx, ui);
 	});
-	ui.canvasHeightInput.addEventListener("input", function(event) {
+	ui.canvasHeightInput.addEventListener("input", function() {
 		syncCanvasContextStateToUIState(ctx, ui);
-	});
-	ui.backgroundColorPicker.addEventListener("input", function(event) {
-		ctx.fillStyle = event.currentTarget.value;
-	});
-	ui.ringColorPicker.addEventListener("input", function(event) {
-		ctx.strokeStyle = event.currentTarget.value;
 	});
 }
