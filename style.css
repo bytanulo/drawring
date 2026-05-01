@@ -21,7 +21,7 @@ body {
 	color: hsl(none none var(--text-lightness));
 	font: medium sans-serif;
 }
-@media(orientation: portrait) {
+@media (orientation: portrait) {
 	body {
 		flex-direction: column-reverse;
 	}
@@ -83,10 +83,15 @@ noscript > * {
 	border-style: solid;
 	box-shadow: 0 0 0.4em black;
 }
-@media(orientation: portrait) {
+@media (orientation: portrait) {
 	#controls-division {
 		border-right-width: 0;
 		border-top-width: var(--border-width);
+	}
+}
+@media print {
+	#controls-division {
+		display: none;
 	}
 }
 
