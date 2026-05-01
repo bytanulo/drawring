@@ -12,6 +12,33 @@ function getElementByIdOrDie(elementID) {
 	return element;
 }
 
+// this could maybe use a clearer and shorter name
+function createPositiveIntegerInputValidator(element) {
+	element.dataset.previousValue = element.value;
+
+	return function(event) {
+		const previousValue = element.dataset.previousValue;
+		const value = element.value.replaceAll(/[^0-9]/g, "");
+		const min = Number(element.min);
+		const max = Number(element.max);
+
+		element.value = element.dataset.previousValue = (
+			(value == "") ? (
+				previousValue
+			)
+			: (value < min) ? (
+				min
+			)
+			: (value > max) ? (
+				max
+			)
+			: (
+				value
+			)
+		);
+	}
+}
+
 function syncCanvasContextStateToUIState(ctx, ui) {
 	ctx.canvas.width  = Number(ui.canvasWidthInput.value);
 	ctx.canvas.height = Number(ui.canvasHeightInput.value);
@@ -52,26 +79,22 @@ onload = function main() {
 		canvasSizePreviewToggle:  getElementByIdOrDie("preview-size-toggle"),
 	};
 
-	let ringCount     = Number(ui.ringCountInput.value);
-	let ringDiameter  = Number(ui.ringDiameterInput.value);
-	let ringThickness = Number(ui.ringThicknessInput.value);
-
 	const ctx = getElementByIdOrDie("canvas").getContext("2d");
 	if(ctx == null) {
 		die("failed to create a drawing context");
 	}
 	syncCanvasContextStateToUIState(ctx, ui);
 
+	for(const input of [ui.ringCountInput, ui.ringDiameterInput, ui.ringThicknessInput, ui.canvasWidthInput, ui.canvasHeightInput]) {
+		input.addEventListener("input", createPositiveIntegerInputValidator(input));
+	}
+
 	ui.drawButton.addEventListener("click", function() {
+		const ringCount     = Number(ui.ringCountInput.value);
+		const ringDiameter  = Number(ui.ringDiameterInput.value);
+		const ringThickness = Number(ui.ringThicknessInput.value);
 		drawRingsToCanvas(ctx, ringCount, ringDiameter, ringThickness);
 	});
-
-	ui.canvasSizePreviewToggle.addEventListener("change", function() {
-		ctx.canvas.style.maxWidth = ctx.canvas.style.maxHeight = (
-			(ui.canvasSizePreviewToggle.checked) ? "100%" : "unset"
-		);
-	});
-	ui.canvasSizePreviewToggle.dispatchEvent(new Event("change"));
 
 	ui.colorSwapper.addEventListener("click", function() {
 		const foregroundColor = ui.ringColorPicker.value;
@@ -84,34 +107,6 @@ onload = function main() {
 		ui.backgroundColorPicker.dispatchEvent(new Event("input"));
 	});
 
-	ui.ringCountInput.addEventListener("input", function(event) {
-		if(event.currentTarget.value.length == 0) {
-			event.currentTarget.value = String(ringCount);
-		}
-		else {
-			ringCount = Number(event.currentTarget.value);
-		}
-	});
-
-	ui.ringDiameterInput.addEventListener("input", function(event) {
-		if(event.currentTarget.value.length == 0) {
-			event.currentTarget.value = String(ringDiameter);
-		}
-		else {
-			ringDiameter = Number(event.currentTarget.value);
-		}
-	});
-
-	ui.ringThicknessInput.addEventListener("input", function(event) {
-		if(event.currentTarget.value.length == 0) {
-			event.currentTarget.value = String(ringThickness);
-		}
-		else {
-			ringThickness = Number(event.currentTarget.value);
-			ctx.lineWidth = ringThickness;
-		}
-	});
-
 	ui.canvasWidthHeightSwapper.addEventListener("click", function(event) {
 		const width = ui.canvasWidthInput.value;
 
@@ -121,6 +116,13 @@ onload = function main() {
 		ui.canvasHeightInput.value = width;
 		ui.canvasHeightInput.dispatchEvent(new Event("input"));
 	});
+
+	ui.canvasSizePreviewToggle.addEventListener("input", function() {
+		ctx.canvas.style.maxWidth = ctx.canvas.style.maxHeight = (
+			(ui.canvasSizePreviewToggle.checked) ? "100%" : "unset"
+		);
+	});
+	ui.canvasSizePreviewToggle.dispatchEvent(new Event("input"));
 
 	ui.canvasWidthInput.addEventListener("input", function(event) {
 		syncCanvasContextStateToUIState(ctx, ui);
