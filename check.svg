@@ -1,7 +1,7 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0"?>
 <!-- this is marked CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/ -->
 <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-	<polygon fill="#000" stroke="none" points="
+	<polygon fill="black" stroke="none" points="
 		 3, 23
 		 8, 18
 		13, 26
