@@ -1,74 +1,3 @@
-function die(message) {
-	// TODO: do something fancier here
-	window.alert(`error: ${message}`);
-	throw new Error(message);
-}
-
-function getElementByIdOrDie(elementID) {
-	const element = document.getElementById(elementID);
-	if(element == null) {
-		die(`no element with id "#${elementID}" in document`);
-	}
-	return element;
-}
-
-function swapInputValues(input1, input2) {
-	const value1 = input1.value;
-	const value2 = input2.value;
-	input1.value = value2;
-	input2.value = value1;
-}
-
-// this could maybe use a clearer and shorter name
-function createPositiveIntegerInputValidator(element) {
-	element.dataset.previousValue = element.value;
-
-	return function(event) {
-		const previousValue = element.dataset.previousValue;
-		const value = element.value.replaceAll(/[^0-9]/g, "");
-		const min = Number(element.min);
-		const max = Number(element.max);
-
-		element.value = element.dataset.previousValue = (
-			(value == "") ? (
-				previousValue
-			)
-			: (value < min) ? (
-				min
-			)
-			: (value > max) ? (
-				max
-			)
-			: (
-				value
-			)
-		);
-	}
-}
-
-function syncCanvasContextStateToUIState(ctx, ui) {
-	ctx.canvas.width  = Number(ui.canvasWidthInput.value);
-	ctx.canvas.height = Number(ui.canvasHeightInput.value);
-
-	ctx.lineWidth   = Number(ui.ringThicknessInput.value);
-	ctx.strokeStyle = ui.ringColorPicker.value;
-	ctx.fillStyle   = ui.backgroundColorPicker.value;
-
-	ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-}
-
-function drawRingsToCanvas(ctx, ringCount, ringDiameter) {
-	ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-	ctx.beginPath();
-	for(let i = 0; i < ringCount; i++) {
-		const x = Math.random() * (ctx.canvas.width  + ringDiameter * 2) - ringDiameter;
-		const y = Math.random() * (ctx.canvas.height + ringDiameter * 2) - ringDiameter;
-		ctx.moveTo(x + ringDiameter / 2, y);
-		ctx.arc(x, y, ringDiameter / 2, 0, 2 * Math.PI);
-	}
-	ctx.stroke();
-}
-
 onload = function main() {
 	// maybe this should be renamed to `inputs`
 	const ui = {
@@ -123,4 +52,75 @@ onload = function main() {
 	ui.canvasHeightInput.addEventListener("input", function() {
 		syncCanvasContextStateToUIState(ctx, ui);
 	});
+}
+
+function drawRingsToCanvas(ctx, ringCount, ringDiameter) {
+	ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+	ctx.beginPath();
+	for(let i = 0; i < ringCount; i++) {
+		const x = Math.random() * (ctx.canvas.width  + ringDiameter * 2) - ringDiameter;
+		const y = Math.random() * (ctx.canvas.height + ringDiameter * 2) - ringDiameter;
+		ctx.moveTo(x + ringDiameter / 2, y);
+		ctx.arc(x, y, ringDiameter / 2, 0, 2 * Math.PI);
+	}
+	ctx.stroke();
+}
+
+function syncCanvasContextStateToUIState(ctx, ui) {
+	ctx.canvas.width  = Number(ui.canvasWidthInput.value);
+	ctx.canvas.height = Number(ui.canvasHeightInput.value);
+
+	ctx.lineWidth   = Number(ui.ringThicknessInput.value);
+	ctx.strokeStyle = ui.ringColorPicker.value;
+	ctx.fillStyle   = ui.backgroundColorPicker.value;
+
+	ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
+
+// this could maybe use a clearer and shorter name
+function createPositiveIntegerInputValidator(element) {
+	element.dataset.previousValue = element.value;
+
+	return function(event) {
+		const previousValue = element.dataset.previousValue;
+		const value = element.value.replaceAll(/[^0-9]/g, "");
+		const min = Number(element.min);
+		const max = Number(element.max);
+
+		element.value = element.dataset.previousValue = (
+			(value == "") ? (
+				previousValue
+			)
+			: (value < min) ? (
+				min
+			)
+			: (value > max) ? (
+				max
+			)
+			: (
+				value
+			)
+		);
+	}
+}
+
+function swapInputValues(input1, input2) {
+	const value1 = input1.value;
+	const value2 = input2.value;
+	input1.value = value2;
+	input2.value = value1;
+}
+
+function getElementByIdOrDie(elementID) {
+	const element = document.getElementById(elementID);
+	if(element == null) {
+		die(`no element with id "#${elementID}" in document`);
+	}
+	return element;
+}
+
+function die(message) {
+	// TODO: do something fancier here
+	window.alert(`error: ${message}`);
+	throw new Error(message);
 }
