@@ -1,11 +1,26 @@
 :root {
 	--input-height: 2em;
-	--border-width: 0.125em;
+	--border-width: 0.12em;
 
-	--text-lightness: 100;
+	--foreground-lightness: 100.0;
+	--background-lightness:  12.5;
+	--lightness-step: 12.5;
 
-	--base-lightness: 12.5;
-	--base-lightness-step: 12.5;
+	--foreground-color:
+		hsl(none none var(--foreground-lightness));
+	--darkened-foreground-color:
+		hsl(none none calc(var(--foreground-lightness) - var(--lightness-step) * 3));
+	--inverted-foreground-color:
+		hsl(none none calc(100 - var(--foreground-lightness)));
+
+	--background-color:
+		hsl(none none var(--background-lightness));
+	--widget-background-color:
+		hsl(none none calc(var(--background-lightness) + var(--lightness-step) * 1));
+	--widget-hover-background-color:
+		hsl(none none calc(var(--background-lightness) + var(--lightness-step) * 2));
+	--widget-active-background-color:
+		hsl(none none calc(var(--background-lightness) + var(--lightness-step) * 4));
 }
 
 body {
@@ -18,7 +33,7 @@ body {
 	padding: 0;
 	margin:  0;
 
-	color: hsl(none none var(--text-lightness));
+	color: var(--foreground-color);
 	font: medium sans-serif;
 }
 @media (orientation: portrait) {
@@ -53,7 +68,7 @@ noscript > * {
 	margin: 0;
 	padding: 0.5em;
 
-	background-color: hsl(none none var(--base-lightness));
+	background-color: var(--background-color);
 	color: #ffe94b;
 
 	border: 0.125em solid #ffe94b;
@@ -74,12 +89,11 @@ noscript > * {
 
 	overflow-y: scroll;
 
-	background-color: hsl(none none var(--base-lightness));
+	background-color: var(--background-color);
 
 	border-width: 0;
 	border-right-width: var(--border-width);
-	border-color: hsl(none none
-		calc(100 - var(--text-lightness)));
+	border-color: var(--inverted-foreground-color);
 	border-style: solid;
 	box-shadow: 0 0 0.4em black;
 }
@@ -107,8 +121,7 @@ noscript > * {
 
 	overflow: scroll;
 
-	background-color: hsl(none none
-		calc(var(--base-lightness) + var(--base-lightness-step) * 1));
+	background-color: var(--widget-background-color);
 }
 
 fieldset {
@@ -132,8 +145,7 @@ legend, label {
 }
 legend {
 	border-bottom: var(--border-width) solid;
-	border-bottom-color: hsl(none none
-		calc(var(--base-lightness) + var(--base-lightness-step) * 4));
+	border-bottom-color: var(--darkened-foreground-color);
 
 	font-weight: bold;
 }
@@ -148,12 +160,10 @@ button, input {
 	margin:  0;
 
 	border: var(--border-width) solid;
-	border-color: hsl(none none
-		calc(100 - var(--text-lightness)));
+	border-color: var(--inverted-foreground-color);
 	border-radius: 0;
 
-	background-color: hsl(none none
-		calc(var(--base-lightness) + var(--base-lightness-step) * 1));
+	background-color: var(--widget-background-color);
 	color: inherit;
 
 	font-size: 1rem;
@@ -167,19 +177,16 @@ input[type = "color"], input[type = "checkbox"] {
 }
 
 button:hover, input:hover {
-	background-color: hsl(none none
-		calc(var(--base-lightness) + var(--base-lightness-step) * 2));
+	background-color: var(--widget-hover-background-color);
 }
 button:active, input:active {
-	background-color: hsl(none none
-		calc(var(--base-lightness) + var(--base-lightness-step) * 4));
+	background-color: var(--widget-active-background-color);
 }
 button:focus, input:focus {
-	outline: var(--border-width) solid hsl(none none var(--text-lightness));
+	outline: var(--border-width) solid var(--foreground-color);
 }
 input[type = "number"]:focus, input[type = "number"]:active {
-	background-color: hsl(none none
-		calc(var(--base-lightness) + var(--base-lightness-step) * 1));
+	background-color: var(--widget-background-color);
 }
 
 input[type = "number"] {
@@ -195,13 +202,15 @@ input[type = "checkbox"] {
 	appearance: none;
 }
 input[type = "checkbox"]:checked {
-	background-color: hsl(none none var(--text-lightness));
+	background-color: var(--foreground-color);
 	background-image: url("check.svg");
 	background-size: contain;
 }
 input[type = "checkbox"]:checked:hover {
-	background-color: hsl(none none
-		calc(var(--base-lightness) + var(--base-lightness-step) * 4));
+	background-color: var(--darkened-foreground-color);
+}
+input[type = "checkbox"]:checked:active {
+	background-color: var(--foreground-color);
 }
 
 legend > button {
