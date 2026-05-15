@@ -149,7 +149,7 @@ legend {
 
 	font-weight: bold;
 }
-label {
+label, #save-button {
 	margin-top: calc(var(--input-height) / 4);
 }
 

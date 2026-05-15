@@ -2,6 +2,7 @@ onload = function main() {
 	// maybe this should be renamed to `inputs`
 	const ui = {
 		drawButton:               getElementByIdOrDie("draw-button"),
+		saveButton:               getElementByIdOrDie("save-button"),
 		ringCountInput:           getElementByIdOrDie("ring-count-input"),
 		ringDiameterInput:        getElementByIdOrDie("ring-diameter-input"),
 		ringThicknessInput:       getElementByIdOrDie("ring-thickness-input"),
@@ -26,6 +27,8 @@ onload = function main() {
 		syncCanvasContextStateToUIState(ctx, ui);
 		drawRingsToCanvas(ctx, ringCount, ringDiameter);
 	});
+
+	ui.saveButton.addEventListener("click", createCanvasContextImageDownloader(ctx, "rings.png"));
 
 	ui.colorSwapper.addEventListener("click", function() {
 		swapInputValues(ui.ringColorPicker, ui.backgroundColorPicker);
@@ -75,6 +78,29 @@ function syncCanvasContextStateToUIState(ctx, ui) {
 	ctx.fillStyle   = ui.backgroundColorPicker.value;
 
 	ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
+
+// this could also use a better name.
+function createCanvasContextImageDownloader(ctx, defaultFileName) {
+	// this might be over-engineered since this is only used in one place and
+	// creating new `<a>` elements on each event is probably not too slow
+
+	const a = document.createElement("a");
+	a.download = defaultFileName;
+
+	let imageFormat = undefined;
+	if(defaultFileName.indexOf(".") != -1) {
+		const imageExtension = defaultFileName.match(/[^.]+$/)[0];
+		if(imageExtension != undefined) {
+			imageFormat = `image/${imageExtension}`;
+		}
+	}
+
+	return function() {
+		a.href = ctx.canvas.toDataURL(imageFormat);
+		a.click();
+		a.href = "";
+	};
 }
 
 // this could maybe use a clearer and shorter name
