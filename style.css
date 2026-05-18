@@ -176,8 +176,11 @@ button, input {
 button {
 	width: 100%;
 }
-input[type = "color"], input[type = "checkbox"] {
+input[type = "checkbox"] {
 	width: var(--input-height);
+}
+input[type = "color"] {
+	width: calc(var(--input-height) * 2);
 }
 
 button:hover, input:hover {
