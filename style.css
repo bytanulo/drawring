@@ -78,12 +78,9 @@ noscript > * {
 }
 
 #controls-division {
-	display: inline-block;
-
 	z-index: 1;
 
-	min-width: 16em;
-	min-height: 50%;
+	min-width: 20em;
 
 	padding: 1em;
 
@@ -99,6 +96,8 @@ noscript > * {
 }
 @media (orientation: portrait) {
 	#controls-division {
+		max-height: 50%;
+
 		border-right-width: 0;
 		border-top-width: var(--border-width);
 	}
@@ -113,7 +112,7 @@ noscript > * {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-grow: 1;
+	flex: 1;
 
 	z-index: 0;
 
@@ -122,6 +121,11 @@ noscript > * {
 	overflow: scroll;
 
 	background-color: var(--widget-background-color);
+}
+@media print {
+	#canvas-division {
+		width: 100%;
+	}
 }
 
 fieldset {
