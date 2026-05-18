@@ -42,8 +42,6 @@ body {
 	}
 }
 
-/* i might want to re-style this since it looks
-   out of place with the rest of the page */
 noscript {
 	position: fixed;
 
@@ -71,7 +69,9 @@ noscript > * {
 	background-color: var(--background-color);
 	color: #ffe94b;
 
-	border: 0.125em solid #ffe94b;
+	border-width: calc(--border-width * 3);
+	border-style: dashed;
+	border-color: #ffe94b;
 	box-shadow: 0 1em 1em 0.5em black;
 
 	font-size: 1.25rem;
@@ -90,8 +90,8 @@ noscript > * {
 
 	border-width: 0;
 	border-right-width: var(--border-width);
-	border-color: var(--inverted-foreground-color);
 	border-style: solid;
+	border-color: var(--inverted-foreground-color);
 	box-shadow: 0 0 0.4em black;
 }
 @media (orientation: portrait) {
