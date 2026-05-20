@@ -28,7 +28,7 @@ onload = function main() {
 		drawRingsToCanvas(ctx, ringCount, ringDiameter);
 	});
 
-	ui.saveButton.addEventListener("click", createCanvasContextImageDownloader(ctx, "rings.png"));
+	ui.saveButton.addEventListener("click", createCanvasContextImageDownloader(ctx, "drawring.png"));
 
 	ui.colorSwapper.addEventListener("click", function() {
 		swapInputValues(ui.ringColorPicker, ui.backgroundColorPicker);
